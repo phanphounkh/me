@@ -102,6 +102,11 @@ if (!OFFLINE) {
 			try {
 				let res = await attempt('HEAD');
 				if (res.status === 405 || res.status === 403) res = await attempt('GET');
+				// LinkedIn answers every automated request with 999 — it can't be checked by script.
+				if (res.status === 999) {
+					console.log(`  ?   999 ${url} (site blocks automated checks — verify by hand)`);
+					return;
+				}
 				const flag = res.ok ? 'ok ' : 'ERR';
 				console.log(`  ${flag} ${res.status} ${url}`);
 				if (!res.ok) problems.push(`external ${res.status}: ${url} (on ${external.get(url).join(', ')})`);

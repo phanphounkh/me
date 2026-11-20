@@ -49,10 +49,16 @@ Setting a link to `null` hides it everywhere (no dead buttons).
 
 After editing content, run `npm run cv` so the PDF, its preview and the social card stay in sync.
 
-### Replacing the portrait
+### Hero slideshow and portrait
 
-Overwrite `assets-src/portrait/phoun-phan-original.png`, adjust `HERO_CROP` / `SQUARE_CROP` in
-`scripts/prepare-images.mjs`, then run `npm run images && npm run cv`.
+The hero slideshow photos are listed in `profile.hero.photos` (`src/lib/content/profile.ts`). Sources live in
+`assets-src/portrait/slide-*`; their 4:5 crop boxes are in the `slides` list in `scripts/prepare-images.mjs`.
+To add a photo: put the original in `assets-src/portrait/`, add a `slides` entry and a `photos` entry, then run
+`npm run images`. The studio photo had a checkerboard painted into its pixels; `scripts/studio-backdrop.py`
+replaces it with a clean backdrop (`python3 scripts/studio-backdrop.py <in.png> <out.png>`).
+
+The CV and social card use `assets-src/portrait/phoun-phan-original.png` (`SQUARE_CROP` / `HERO_CROP`);
+after changing them run `npm run images && npm run cv`.
 
 ## Project structure
 

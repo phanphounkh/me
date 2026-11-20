@@ -25,11 +25,9 @@ export const profile = {
 		// Verified via the GitHub API (both accounts exist and are public).
 		github: 'https://github.com/phanphounkh',
 		githubWeb: 'https://github.com/phanphoun',
-		// TODO(confirm): LinkedIn is hidden until the correct URL is confirmed. The old site used
-		// both /in/phanphoun and /in/phan-phoun-73baa2352 — set the right one here to show it.
-		linkedin: null as string | null,
-		// Not shown: no verified channel. Set a URL to display a YouTube link.
-		youtube: null as string | null
+		// Confirmed by Phoun (Nov 2026). Set any link to null to hide it everywhere.
+		linkedin: 'https://www.linkedin.com/in/phanphoun/' as string | null,
+		youtube: 'https://www.youtube.com/@doctorcodekh' as string | null
 	},
 
 	languages: [

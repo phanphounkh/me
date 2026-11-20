@@ -79,11 +79,6 @@
 						</a>
 					</li>
 				{/if}
-				<li>
-					<a class="icon-btn" href="mailto:{profile.email}" aria-label="Email {profile.email}">
-						<Mail size={18} aria-hidden="true" />
-					</a>
-				</li>
 				{#if profile.links.youtube}
 					<li>
 						<a
@@ -97,6 +92,11 @@
 						</a>
 					</li>
 				{/if}
+				<li>
+					<a class="icon-btn" href="mailto:{profile.email}" aria-label="Email {profile.email}">
+						<Mail size={18} aria-hidden="true" />
+					</a>
+				</li>
 				<li class="ml-2 hidden font-mono text-xs text-subtle sm:block">{profile.email}</li>
 			</ul>
 		</div>

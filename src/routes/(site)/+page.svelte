@@ -12,7 +12,7 @@
 	import { SITE_URL, profile } from '#lib/content/profile.ts';
 	import { skillGroups } from '#lib/content/skills.ts';
 
-	const sameAs = [profile.links.github, profile.links.githubWeb, profile.links.linkedin].filter(
+	const sameAs = [profile.links.github, profile.links.githubWeb, profile.links.linkedin, profile.links.youtube].filter(
 		(u): u is string => !!u
 	);
 
