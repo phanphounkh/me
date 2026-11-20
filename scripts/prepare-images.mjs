@@ -17,6 +17,14 @@ const PORTRAIT_SRC = 'assets-src/portrait/phoun-phan-original.png';
 const HERO_CROP = { left: 263, top: 320, width: 560, height: 700 }; // 4:5 upper body
 const SQUARE_CROP = { left: 330, top: 345, width: 420, height: 420 }; // head + shoulders
 
+// Hero slideshow (all cropped to 4:5). The studio slide is pre-processed by
+// scripts/studio-backdrop.py (removes a baked-in checkerboard background).
+const slides = [
+	['assets-src/portrait/slide-studio.png', null, 'slide-studio'], // already 1086×1358 (4:5)
+	['assets-src/portrait/slide-angkor-original.jpg', { left: 0, top: 170, width: 720, height: 900 }, 'slide-angkor'],
+	['assets-src/portrait/slide-pnc-original.jpg', { left: 0, top: 30, width: 960, height: 1200 }, 'slide-pnc']
+];
+
 const projects = [
 	['ppdw-phase2-central-market-sunset', 'ppdw-cover'],
 	['ppdw-phase3-two-players', 'ppdw-multiplayer'],
@@ -47,6 +55,9 @@ async function variants(input, extract, base, widths, { jpg = true } = {}) {
 await mkdir(OUT, { recursive: true });
 await variants(PORTRAIT_SRC, HERO_CROP, 'portrait', [360, 560]);
 await variants(PORTRAIT_SRC, SQUARE_CROP, 'portrait-square', [240, 420]);
+for (const [src, crop, base] of slides) {
+	await variants(src, crop, base, [400, 720]);
+}
 for (const [src, base] of projects) {
 	await variants(`assets-src/projects/${src}.png`, null, base, [640, 1100], { jpg: false });
 }
