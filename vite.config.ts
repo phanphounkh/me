@@ -1,0 +1,35 @@
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
+import adapter from '@sveltejs/adapter-static';
+import { sveltekit } from '@sveltejs/kit/vite';
+
+export default defineConfig({
+	server: { port: 5173 },
+	preview: { port: 4173 },
+	plugins: [
+		tailwindcss(),
+		sveltekit({
+			compilerOptions: {
+				// Runes mode for project files; libraries decide for themselves.
+				runes: ({ filename }) => (filename.split(/[/\\]/).includes('node_modules') ? undefined : true)
+			},
+			// Fully static output (build/) — deployable to Vercel, Netlify, Cloudflare Pages or any CDN.
+			// Inline the page CSS (~60 kB, ~12 kB gzipped) to remove render-blocking requests.
+			inlineStyleThreshold: 100_000,
+			// 404.html is served by Vercel, Netlify, Cloudflare Pages and GitHub Pages for unknown URLs.
+			adapter: adapter({ fallback: '404.html', strict: true }),
+			prerender: {
+				// /og/ is not linked from any page; it is rendered to og.png by `npm run cv`.
+				entries: ['*', '/og/'],
+				// Broken internal links fail the build. The only exception: while `npm run cv`
+				// bootstraps (CV_BOOTSTRAP=1), the CV PDF and its preview image don't exist yet.
+				handleHttpError: ({ path, message }) => {
+					const generated = path.startsWith('/files/') || path.startsWith('/images/cv-preview');
+					if (process.env.CV_BOOTSTRAP === '1' && generated) return;
+					throw new Error(message);
+				},
+				handleMissingId: 'fail'
+			}
+		})
+	]
+});

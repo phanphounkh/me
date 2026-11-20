@@ -1,0 +1,11 @@
+node_modules
+/build
+/.svelte-kit
+/test-results
+/playwright-report
+/.lighthouse
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log

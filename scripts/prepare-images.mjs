@@ -1,0 +1,56 @@
+/**
+ * Generates optimized, responsive image variants from the originals in assets-src/.
+ * Run with `npm run images` whenever a source image changes; outputs go to static/images/
+ * and are committed so builds stay deterministic.
+ *
+ * To replace the portrait: overwrite assets-src/portrait/phoun-phan-original.png and adjust
+ * the crop boxes below (left/top/width/height in source pixels), then run `npm run images`.
+ */
+import sharp from 'sharp';
+import { mkdir } from 'node:fs/promises';
+import path from 'node:path';
+
+const OUT = 'static/images';
+const PORTRAIT_SRC = 'assets-src/portrait/phoun-phan-original.png';
+
+// Crop boxes in source pixels (source is 1086×1448).
+const HERO_CROP = { left: 263, top: 320, width: 560, height: 700 }; // 4:5 upper body
+const SQUARE_CROP = { left: 330, top: 345, width: 420, height: 420 }; // head + shoulders
+
+const projects = [
+	['ppdw-phase2-central-market-sunset', 'ppdw-cover'],
+	['ppdw-phase3-two-players', 'ppdw-multiplayer'],
+	['ppdw-phase4-shop-interior', 'ppdw-shop'],
+	['ppdw-phase5-route', 'ppdw-route']
+];
+
+async function variants(input, extract, base, widths, { jpg = true } = {}) {
+	for (const w of widths) {
+		const pipeline = () => {
+			let s = sharp(input);
+			if (extract) s = s.extract(extract);
+			return s.resize({ width: w, withoutEnlargement: true });
+		};
+		await pipeline()
+			.avif({ quality: 52, effort: 6 })
+			.toFile(path.join(OUT, `${base}-${w}.avif`));
+		await pipeline()
+			.webp({ quality: 78 })
+			.toFile(path.join(OUT, `${base}-${w}.webp`));
+		if (jpg)
+			await pipeline()
+				.jpeg({ quality: 82, mozjpeg: true })
+				.toFile(path.join(OUT, `${base}-${w}.jpg`));
+	}
+}
+
+await mkdir(OUT, { recursive: true });
+await variants(PORTRAIT_SRC, HERO_CROP, 'portrait', [360, 560]);
+await variants(PORTRAIT_SRC, SQUARE_CROP, 'portrait-square', [240, 420]);
+for (const [src, base] of projects) {
+	await variants(`assets-src/projects/${src}.png`, null, base, [640, 1100], { jpg: false });
+}
+// Apple touch icon from the SVG favicon.
+await sharp('static/favicon.svg', { density: 400 }).resize(180, 180).png().toFile('static/apple-touch-icon.png');
+
+console.log('Images written to', OUT);
