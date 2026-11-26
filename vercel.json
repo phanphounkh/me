@@ -3,7 +3,12 @@
 	"buildCommand": "npm run build",
 	"redirects": [
 		{
-			"source": "/projects/campus-eats/:path*",
+			"source": "/projects/campus-eats",
+			"destination": "/projects/bondarnh-erp/",
+			"permanent": true
+		},
+		{
+			"source": "/projects/campus-eats/",
 			"destination": "/projects/bondarnh-erp/",
 			"permanent": true
 		}
