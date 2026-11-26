@@ -71,7 +71,7 @@
 			aria-label={paused ? 'Resume orbit animation' : 'Pause orbit animation'}
 			aria-pressed={paused}
 		>
-			{#if paused}<Play size={12} aria-hidden="true" />{:else}<Pause size={12} aria-hidden="true" />}{/if}
+			{#if paused}<Play size={12} aria-hidden="true" />{:else}<Pause size={12} aria-hidden="true" />{/if}
 		</button>
 	</div>
 
