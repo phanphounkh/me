@@ -17,6 +17,10 @@ const PORTRAIT_SRC = 'assets-src/portrait/phoun-phan-original.png';
 const HERO_CROP = { left: 263, top: 320, width: 560, height: 700 }; // 4:5 upper body
 const SQUARE_CROP = { left: 330, top: 345, width: 420, height: 420 }; // head + shoulders
 
+// Formal headshot used only on the CV (/cv/ and the PDF). Source is 965×1280.
+const CV_PORTRAIT_SRC = 'assets-src/portrait/cv-portrait-original.png';
+const CV_CROP = { left: 155, top: 0, width: 660, height: 660 }; // head + shoulders
+
 // Hero slideshow (all cropped to 4:5). The studio slide is pre-processed by
 // scripts/studio-backdrop.py (removes a baked-in checkerboard background).
 const slides = [
@@ -55,6 +59,7 @@ async function variants(input, extract, base, widths, { jpg = true } = {}) {
 await mkdir(OUT, { recursive: true });
 await variants(PORTRAIT_SRC, HERO_CROP, 'portrait', [360, 560]);
 await variants(PORTRAIT_SRC, SQUARE_CROP, 'portrait-square', [240, 420]);
+await variants(CV_PORTRAIT_SRC, CV_CROP, 'cv-portrait', [420]);
 for (const [src, crop, base] of slides) {
 	await variants(src, crop, base, [400, 720]);
 }

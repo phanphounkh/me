@@ -85,7 +85,7 @@
 	<article class="sheet" aria-label="Curriculum vitae of {profile.name}">
 		<header class="cv-head">
 			<img
-				src="/images/portrait-square-420.jpg"
+				src="/images/cv-portrait-420.jpg"
 				alt="Portrait of {profile.name}"
 				width="420"
 				height="420"
