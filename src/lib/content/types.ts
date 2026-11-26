@@ -46,6 +46,8 @@ export interface Project {
 	context: string;
 	repo?: string;
 	live?: string;
+	/** Text for the `live` link; defaults to "Live demo". */
+	liveLabel?: string;
 	/** Shown instead of a code link when the code cannot be public. */
 	privateNote?: string;
 	cover: Cover;

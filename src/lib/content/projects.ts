@@ -27,6 +27,8 @@ export const projects: Project[] = [
 		categories: ['ai', 'cv'],
 		tech: ['Python', 'OpenCV', 'PyTorch', 'OCR / HTR', 'eScriptorium'],
 		context: 'SKAI Technology internship',
+		live: 'https://chat.sorya-ai.com/app',
+		liveLabel: 'Try Sorya AI',
 		privateNote: SKAI_PRIVATE,
 		cover: { kind: 'art', motif: 'ocr' },
 		implemented: [

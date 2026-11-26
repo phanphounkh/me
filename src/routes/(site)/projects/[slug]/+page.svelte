@@ -62,7 +62,8 @@
 				{/if}
 				{#if p.live}
 					<a class="btn btn-secondary" href={p.live} target="_blank" rel="noopener">
-						<ExternalLink size={17} aria-hidden="true" /> Live demo<span class="sr-only"> (opens in a new tab)</span>
+						<ExternalLink size={17} aria-hidden="true" />
+						{p.liveLabel ?? 'Live demo'}<span class="sr-only"> (opens in a new tab)</span>
 					</a>
 				{/if}
 				{#if p.privateNote}

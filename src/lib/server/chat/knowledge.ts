@@ -153,7 +153,7 @@ function build(): Chunk[] {
 				!!p.planned?.length && `Planned (not built yet):\n${bullets(p.planned)}`,
 				!!p.goals?.length && `Learning goals:\n${bullets(p.goals)}`,
 				p.repo && `Code: ${p.repo}`,
-				p.live && `Live demo: ${p.live}`,
+				p.live && `${p.liveLabel ?? 'Live demo'}: ${p.live}`,
 				p.privateNote
 			)
 		});

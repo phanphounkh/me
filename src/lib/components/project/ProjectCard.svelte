@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ArrowUpRight from '@lucide/svelte/icons/arrow-up-right';
+	import ExternalLink from '@lucide/svelte/icons/external-link';
 	import Lock from '@lucide/svelte/icons/lock';
 	import BrandIcon from '#lib/components/ui/BrandIcon.svelte';
 	import StatusBadge from '#lib/components/ui/StatusBadge.svelte';
@@ -35,7 +36,7 @@
 		</ul>
 
 		<div class="mt-auto flex items-center justify-between gap-3 pt-6">
-			<span class="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+			<span class="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium whitespace-nowrap text-accent">
 				Case study
 				<ArrowUpRight
 					size={16}
@@ -43,22 +44,38 @@
 					class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
 				/>
 			</span>
-			{#if project.repo}
-				<a
-					href={project.repo}
-					target="_blank"
-					rel="noopener"
-					class="relative z-10 inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-sm text-muted hover:bg-surface-hover hover:text-fg"
-				>
-					<BrandIcon name="github" size={15} /> Code<span class="sr-only">
-						for {project.title} on GitHub (opens in a new tab)
+			<div class="flex flex-wrap items-center justify-end gap-x-2 gap-y-1">
+				{#if project.live}
+					<a
+						href={project.live}
+						target="_blank"
+						rel="noopener"
+						class="relative z-10 inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-sm whitespace-nowrap text-muted hover:bg-surface-hover hover:text-fg"
+					>
+						<ExternalLink size={15} aria-hidden="true" />
+						{project.liveLabel ?? 'Live demo'}<span class="sr-only"> (opens in a new tab)</span>
+					</a>
+				{/if}
+				{#if project.repo}
+					<a
+						href={project.repo}
+						target="_blank"
+						rel="noopener"
+						class="relative z-10 inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-sm text-muted hover:bg-surface-hover hover:text-fg"
+					>
+						<BrandIcon name="github" size={15} /> Code<span class="sr-only">
+							for {project.title} on GitHub (opens in a new tab)
+						</span>
+					</a>
+				{:else if project.privateNote}
+					<span
+						class="inline-flex items-center gap-1.5 text-xs whitespace-nowrap text-subtle"
+						title={project.privateNote}
+					>
+						<Lock size={13} aria-hidden="true" /> Private
 					</span>
-				</a>
-			{:else if project.privateNote}
-				<span class="inline-flex items-center gap-1.5 text-xs text-subtle" title={project.privateNote}>
-					<Lock size={13} aria-hidden="true" /> Private
-				</span>
-			{/if}
+				{/if}
+			</div>
 		</div>
 	</div>
 </article>
