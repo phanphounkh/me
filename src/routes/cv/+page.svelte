@@ -1,8 +1,12 @@
 <script lang="ts">
 	import ArrowLeft from '@lucide/svelte/icons/arrow-left';
 	import Download from '@lucide/svelte/icons/download';
+	import Globe from '@lucide/svelte/icons/globe';
+	import Mail from '@lucide/svelte/icons/mail';
+	import MapPin from '@lucide/svelte/icons/map-pin';
 	import Printer from '@lucide/svelte/icons/printer';
 	import Seo from '#lib/components/Seo.svelte';
+	import BrandIcon from '#lib/components/ui/BrandIcon.svelte';
 	import { education, internship } from '#lib/content/experience.ts';
 	import { CV_PDF_PATH, SITE_URL, profile } from '#lib/content/profile.ts';
 	import { getProject, moreAiWork } from '#lib/content/projects.ts';
@@ -46,15 +50,19 @@
 		}
 	];
 
+	type ContactIcon = 'location' | 'email' | 'web' | 'github' | 'linkedin';
 	const contacts = $derived(
-		[
-			{ label: profile.location, href: null },
-			{ label: profile.email, href: `mailto:${profile.email}` },
-			{ label: strip(SITE_URL), href: SITE_URL },
-			{ label: strip(profile.links.github), href: profile.links.github },
-			{ label: strip(profile.links.githubWeb), href: profile.links.githubWeb },
-			profile.links.linkedin ? { label: strip(profile.links.linkedin), href: profile.links.linkedin } : null
-		].filter((c) => c !== null)
+		(
+			[
+				{ icon: 'location', label: profile.location, href: null },
+				{ icon: 'email', label: profile.email, href: `mailto:${profile.email}` },
+				{ icon: 'web', label: strip(SITE_URL), href: SITE_URL },
+				{ icon: 'github', label: strip(profile.links.github), href: profile.links.github },
+				profile.links.linkedin
+					? { icon: 'linkedin', label: strip(profile.links.linkedin), href: profile.links.linkedin }
+					: null
+			] satisfies ({ icon: ContactIcon; label: string; href: string | null } | null)[]
+		).filter((c) => c !== null)
 	);
 </script>
 
@@ -83,9 +91,17 @@
 				<h1 class="name">{profile.name.toUpperCase()}</h1>
 				<p class="title">{profile.title}</p>
 				<ul class="contacts">
+					{#snippet icon(name: ContactIcon)}
+						{#if name === 'location'}<MapPin size={12} aria-hidden="true" />
+						{:else if name === 'email'}<Mail size={12} aria-hidden="true" />
+						{:else if name === 'web'}<Globe size={12} aria-hidden="true" />
+						{:else}<BrandIcon {name} size={11} />{/if}
+					{/snippet}
 					{#each contacts as c (c.label)}
 						<li>
-							{#if c.href}<a href={c.href}>{c.label}</a>{:else}{c.label}{/if}
+							{#if c.href}<a href={c.href}>{@render icon(c.icon)}{c.label}</a>{:else}<span>
+									{@render icon(c.icon)}{c.label}
+								</span>{/if}
 						</li>
 					{/each}
 				</ul>
@@ -280,19 +296,27 @@
 		font-size: 8.6pt;
 		color: var(--ink-2);
 	}
-	.contacts li + li::before {
-		content: '·';
-		margin-right: 3.5mm;
-		color: var(--rule);
+	/* Each contact leads with its icon, which also separates the items. */
+	.contacts a,
+	.contacts span {
+		display: inline-flex;
+		align-items: center;
+		gap: 1.3mm;
+	}
+	.contacts :global(svg) {
+		flex: none;
+		color: var(--accent-cv);
 	}
 	/* On screen, give the small CV links a comfortable 24px target (print is unaffected). */
 	@media screen {
-		.contacts a,
 		.link a,
 		.more a {
 			display: inline-block;
 			min-height: 24px;
 			line-height: 24px;
+		}
+		.contacts a {
+			min-height: 24px;
 		}
 	}
 	.block {
