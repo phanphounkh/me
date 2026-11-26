@@ -1,4 +1,4 @@
-import type { SkillGroup } from './types';
+import type { HeroSkill, SkillGroup } from './types';
 
 /**
  * Skills grouped by domain. No proficiency percentages: each group states where the skills
@@ -62,6 +62,117 @@ export const currentlyLearning = [
 	'LLM fine-tuning',
 	'Production ML systems',
 	'MLOps'
+];
+
+export const heroSkills: HeroSkill[] = [
+	{
+		name: 'Python',
+		category: 'Core language',
+		icon: 'python',
+		description: 'My main language for OCR research, model experiments, APIs and automation.',
+		x: 19,
+		y: 15,
+		tooltip: 'right'
+	},
+	{
+		name: 'PyTorch',
+		category: 'Deep learning',
+		icon: 'pytorch',
+		description: 'Training and evaluating neural networks for Khmer printed and handwritten text recognition.',
+		x: 43,
+		y: 7,
+		tooltip: 'bottom'
+	},
+	{
+		name: 'FastAPI',
+		category: 'Backend',
+		icon: 'fastapi',
+		description: 'Building typed REST APIs that turn AI workflows into usable products.',
+		x: 74,
+		y: 13,
+		tooltip: 'left'
+	},
+	{
+		name: 'OpenCV',
+		category: 'Computer vision',
+		icon: 'opencv',
+		description: 'Preprocessing document images, detecting text lines and improving OCR input quality.',
+		x: 89,
+		y: 36,
+		tooltip: 'left'
+	},
+	{
+		name: 'NumPy',
+		category: 'Scientific computing',
+		icon: 'numpy',
+		description: 'Numerical arrays and image operations behind dataset preparation and model experiments.',
+		x: 82,
+		y: 65,
+		tooltip: 'left'
+	},
+	{
+		name: 'Pandas',
+		category: 'Data analysis',
+		icon: 'pandas',
+		description: 'Exploring datasets, organising annotations and analysing recognition results.',
+		x: 68,
+		y: 85,
+		tooltip: 'top'
+	},
+	{
+		name: 'Docker',
+		category: 'DevOps',
+		icon: 'docker',
+		description: 'Creating reproducible development and deployment environments with Docker Compose.',
+		x: 42,
+		y: 92,
+		tooltip: 'top'
+	},
+	{
+		name: 'PostgreSQL',
+		category: 'Database',
+		icon: 'postgresql',
+		description: 'Designing relational data for annotation tools, full-stack applications and APIs.',
+		x: 17,
+		y: 82,
+		tooltip: 'right'
+	},
+	{
+		name: 'Svelte',
+		category: 'Frontend',
+		icon: 'svelte',
+		description: 'Building responsive interfaces for annotation tools, dashboards and this portfolio.',
+		x: 7,
+		y: 59,
+		tooltip: 'right'
+	},
+	{
+		name: 'Git',
+		category: 'Version control',
+		icon: 'git',
+		description: 'Tracking research code and collaborating on full-stack and AI projects.',
+		x: 13,
+		y: 35,
+		tooltip: 'right'
+	},
+	{
+		name: 'Google Colab',
+		category: 'AI workspace',
+		icon: 'googlecolab',
+		description: 'Running cloud notebooks for model training, experimentation and reproducible research.',
+		x: 31,
+		y: 32,
+		tooltip: 'bottom'
+	},
+	{
+		name: 'Kaggle',
+		category: 'ML practice',
+		icon: 'kaggle',
+		description: 'Exploring datasets and practising machine learning through notebooks and competitions.',
+		x: 61,
+		y: 32,
+		tooltip: 'bottom'
+	}
 ];
 
 /** Compact list for the CV (most relevant first). */

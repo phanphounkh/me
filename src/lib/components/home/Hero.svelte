@@ -5,7 +5,7 @@
 	import MapPin from '@lucide/svelte/icons/map-pin';
 	import BrandIcon from '#lib/components/ui/BrandIcon.svelte';
 	import { CV_PDF_PATH, profile } from '#lib/content/profile.ts';
-	import Portrait from './Portrait.svelte';
+	import SkillOrbit from './SkillOrbit.svelte';
 </script>
 
 <section id="home" class="hero" aria-labelledby="hero-name">
@@ -102,7 +102,7 @@
 		</div>
 
 		<div class="relative">
-			<Portrait />
+			<SkillOrbit />
 		</div>
 	</div>
 </section>

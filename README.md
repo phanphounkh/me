@@ -34,13 +34,13 @@ Requirements: Node 22+, and for CV generation / tests: Google Chrome and `popple
 
 ## Editing content
 
-| File                            | Contains                                                          |
-| ------------------------------- | ----------------------------------------------------------------- |
-| `src/lib/content/profile.ts`    | Name, title, contact, links, hero copy, summary, about, languages |
-| `src/lib/content/experience.ts` | SKAI internship, work areas, timeline, education, journey         |
-| `src/lib/content/projects.ts`   | Projects, case studies, more AI work, earlier web projects        |
-| `src/lib/content/skills.ts`     | Skill groups, currently learning, CV skill lines                  |
-| `src/lib/content/research.ts`   | OCR pipeline stages, Khmer challenges, principles                 |
+| File                            | Contains                                                             |
+| ------------------------------- | -------------------------------------------------------------------- |
+| `src/lib/content/profile.ts`    | Name, title, contact, links, hero copy, summary, about, languages    |
+| `src/lib/content/experience.ts` | SKAI internship, work areas, timeline, education, journey            |
+| `src/lib/content/projects.ts`   | Projects, case studies, more AI work, earlier web projects           |
+| `src/lib/content/skills.ts`     | Skill groups, hero constellation, currently learning, CV skill lines |
+| `src/lib/content/research.ts`   | OCR pipeline stages, Khmer challenges, principles                    |
 
 Rules the content follows: status labels are conservative (nothing is called production-ready), implemented
 and planned features are always listed separately, and SKAI Technology internal code, data, architecture and
@@ -49,16 +49,15 @@ Setting a link to `null` hides it everywhere (no dead buttons).
 
 After editing content, run `npm run cv` so the PDF, its preview and the social card stay in sync.
 
-### Hero slideshow and portrait
+### Hero skill constellation
 
-The hero slideshow photos are listed in `profile.hero.photos` (`src/lib/content/profile.ts`). Sources live in
-`assets-src/portrait/slide-*`; their 4:5 crop boxes are in the `slides` list in `scripts/prepare-images.mjs`.
-To add a photo: put the original in `assets-src/portrait/`, add a `slides` entry and a `photos` entry, then run
-`npm run images`. The studio photo had a checkerboard painted into its pixels; `scripts/studio-backdrop.py`
-replaces it with a clean backdrop (`python3 scripts/studio-backdrop.py <in.png> <out.png>`).
+The hero’s interactive skill nodes live in `heroSkills` (`src/lib/content/skills.ts`). Each entry controls the
+brand icon, description, orbit position and tooltip direction. Nodes support pointer hover, keyboard focus,
+Escape to dismiss and touch/click selection; the animation has a pause control and respects reduced motion.
 
-The CV and social card use `assets-src/portrait/phoun-phan-original.png` (`SQUARE_CROP` / `HERO_CROP`);
-after changing them run `npm run images && npm run cv`.
+The constellation uses `static/images/portrait-square-*`, generated from
+`assets-src/portrait/phoun-phan-original.png` (`SQUARE_CROP` in `scripts/prepare-images.mjs`). After changing
+that portrait, run `npm run images && npm run cv` to refresh the hero, CV and social card.
 
 ## Project structure
 
@@ -69,7 +68,7 @@ src/
   lib/
     content/                 ← all site and CV text
     components/
-      home/                  Hero, Portrait, About, Journey, Experience, Projects, Skills, Research, Resume, Contact
+      home/                  Hero, SkillOrbit, Portrait, About, Journey, Experience, Projects, Skills, Research, Resume, Contact
       project/               ProjectCard, CompactCard, ProjectCover, CoverArt (SVG illustrations)
       research/              PipelineExplorer, LineFigure
       layout/                Navbar, Footer, Logo, ThemeToggle, BackToTop

@@ -97,3 +97,27 @@ export interface SkillGroup {
 	skills: string[];
 	evidence: string;
 }
+
+export type HeroSkillIcon =
+	| 'python'
+	| 'fastapi'
+	| 'pytorch'
+	| 'opencv'
+	| 'numpy'
+	| 'pandas'
+	| 'postgresql'
+	| 'docker'
+	| 'svelte'
+	| 'git'
+	| 'googlecolab'
+	| 'kaggle';
+
+export interface HeroSkill {
+	name: string;
+	category: string;
+	icon: HeroSkillIcon;
+	description: string;
+	x: number;
+	y: number;
+	tooltip: 'top' | 'bottom' | 'left' | 'right';
+}

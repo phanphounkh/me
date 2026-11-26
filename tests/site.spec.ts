@@ -30,7 +30,7 @@ async function noHorizontalOverflow(page: Page) {
 }
 
 test.describe('home page', () => {
-	test('renders the hero with name, title, CTAs and portrait, without errors', async ({ page }) => {
+	test('renders the hero with name, title, CTAs and skill constellation, without errors', async ({ page }) => {
 		const errors = watchErrors(page);
 		await page.goto('/');
 		await expect(page.getByRole('heading', { level: 1, name: 'Phoun Phan' })).toBeVisible();
@@ -41,7 +41,10 @@ test.describe('home page', () => {
 			'/files/Phoun-Phan-CV.pdf'
 		);
 		await expect(page.getByRole('link', { name: 'Contact Me' })).toHaveAttribute('href', '#contact');
-		const portrait = page.getByRole('img', { name: /Studio portrait of Phoun Phan/ });
+		const constellation = page.getByRole('group', { name: 'Skill constellation' });
+		await expect(constellation).toBeVisible();
+		await expect(constellation.getByRole('button')).toHaveCount(13);
+		const portrait = page.getByRole('img', { name: 'Portrait of Phoun Phan' });
 		await expect(portrait).toBeVisible();
 		await expect
 			.poll(() => portrait.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0))
@@ -90,40 +93,47 @@ test.describe('home page', () => {
 		await context.close();
 	});
 
-	test('hero slideshow: dots, pause/play and autoplay', async ({ page }) => {
-		await page.mouse.move(0, 0); // keep the pointer off the slideshow (hover pauses it)
+	test('skill constellation reveals descriptions and can be paused', async ({ page, isMobile }) => {
 		await page.goto('/');
-		const slideshow = page.getByRole('region', { name: 'Photos of Phoun Phan' });
-		const slide = (n: number) => slideshow.locator(`[aria-roledescription="slide"][aria-label^="${n} of 3"]`);
-		await expect(slide(1)).toHaveAttribute('aria-hidden', 'false');
+		const constellation = page.getByRole('group', { name: 'Skill constellation' });
+		const python = constellation.getByRole('button', { name: /^Python\./ });
+		const tooltip = python.locator('..').locator('.tooltip');
 
-		// Every photo loads (none is broken).
-		for (const n of [1, 2, 3]) {
-			await expect
-				.poll(() =>
-					slide(n)
-						.locator('img')
-						.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)
-				)
-				.toBe(true);
+		if (isMobile) {
+			await python.tap();
+		} else {
+			await python.hover();
+		}
+		await expect(tooltip).toBeVisible();
+		await expect(tooltip).toContainText('OCR research');
+		await expect(constellation.locator('.connector.is-active')).toHaveCount(1);
+
+		if (isMobile) {
+			await python.tap();
+			await expect(tooltip).toBeHidden();
+			await python.tap();
+			await expect(tooltip).toBeVisible();
+
+			await page.setViewportSize({ width: 320, height: 844 });
+			const colab = constellation.getByRole('button', { name: /^Google Colab\./ });
+			await colab.tap();
+			await expect(colab.locator('..').locator('.tooltip')).toBeVisible();
+		} else {
+			await page.mouse.move(0, 0);
+			await expect(tooltip).toBeHidden();
+			await python.focus();
+			await expect(tooltip).toBeVisible();
+			await page.keyboard.press('Escape');
+			await expect(tooltip).toBeHidden();
 		}
 
-		// Dots select a photo.
-		await slideshow.getByRole('button', { name: 'Show photo 3: Passerelles numériques Cambodia' }).click();
-		await expect(slide(3)).toHaveAttribute('aria-hidden', 'false');
-		await expect(slide(1)).toHaveAttribute('aria-hidden', 'true');
-		await expect(slideshow.getByRole('button', { name: /Show photo 3/ })).toHaveAttribute('aria-current', 'true');
-
-		// Pause/play toggles.
-		await slideshow.getByRole('button', { name: 'Pause slideshow' }).click();
-		await expect(slideshow.getByRole('button', { name: 'Play slideshow' })).toBeVisible();
-		await slideshow.getByRole('button', { name: 'Play slideshow' }).click();
-
-		// Autoplay advances on its own (3 → 1) once the pointer and focus leave the slideshow.
-		await page.mouse.move(0, 0);
-		await page.locator('body').focus();
-		await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
-		await expect(slide(1)).toHaveAttribute('aria-hidden', 'false', { timeout: 9000 });
+		const pause = constellation.getByRole('button', { name: 'Pause orbit animation' });
+		await pause.click();
+		await expect(constellation.getByRole('button', { name: 'Resume orbit animation' })).toHaveAttribute(
+			'aria-pressed',
+			'true'
+		);
+		await noHorizontalOverflow(page);
 	});
 
 	test('section links scroll to their targets', async ({ page, isMobile }) => {
