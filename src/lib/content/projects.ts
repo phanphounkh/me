@@ -344,15 +344,21 @@ export const projects: Project[] = [
 	{
 		slug: 'campus-eats',
 		title: 'Campus Eats',
-		tagline: 'A bilingual food-ordering prototype for a student canteen.',
+		tagline: 'A bilingual food-ordering prototype for a student canteen, which grew into the Bondarnh marketplace.',
 		summary:
-			'Students browse the menu, drag dishes into a cart, pay with a demo KHQR flow and track their order; staff manage orders and the menu.',
+			'Students browse the menu, drag dishes into a cart, pay with a demo KHQR flow and track their order; staff manage orders and the menu. The project later grew into Bondarnh, a bilingual social-commerce marketplace for Cambodian buyers and sellers, shown in the demo video.',
 		status: 'Prototype',
 		categories: ['fullstack', '3d'],
 		tech: ['SvelteKit', 'FastAPI', 'PostgreSQL', 'Docker', 'Tailwind CSS', 'Three.js'],
 		context: 'Personal project',
 		repo: 'https://github.com/phanphounkh/campufood',
-		cover: { kind: 'art', motif: 'cart' },
+		demo: { kind: 'youtube', id: 'uIR7XFcqiU4', title: 'Bondarnh, a Cambodian e-commerce platform: full-stack demo' },
+		cover: {
+			kind: 'image',
+			base: 'campuseats-cover',
+			alt: 'Promotional graphic for Bondarnh, the Cambodian marketplace that grew out of Campus Eats: the shop on a laptop and a phone, with Khmer product listings and prices.',
+			position: '25% 30%'
+		},
 		implemented: [
 			'English / Khmer menu browsing',
 			'Interactive cart with quantity and total calculation',
@@ -376,7 +382,8 @@ export const projects: Project[] = [
 			],
 			architecture: ['SvelteKit', 'FastAPI', 'PostgreSQL', 'Docker Compose'],
 			challenges: ['Keeping the payment flow clearly demo-only.', 'Bilingual content throughout the UI.'],
-			status: 'Working prototype. Payments are a demo; the 3D shopping experience is a separate prototype.',
+			status:
+				'Working prototype. Payments are a demo; the 3D shopping experience is a separate prototype. The project later grew into Bondarnh — a marketplace with shops, sandbox KHQR checkout, messaging and seller analytics (private repository).',
 			learned: ['End-to-end testing of a full product', 'Designing safe demo payment flows'],
 			next: ['Merge the 3D shopping ideas into a single experience.']
 		}

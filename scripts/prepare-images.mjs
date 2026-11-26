@@ -39,6 +39,7 @@ const projects = [
 	['ppdw-wardrobe-garments', 'ppdw-wardrobe'],
 	['sorya-ai-cover', 'sorya-cover'],
 	['annotation-studio-cover', 'annotation-cover'],
+	['campuseats-bondarnh-cover', 'campuseats-cover'],
 	['sorya-editor', 'sorya-editor'],
 	['sorya-home', 'sorya-home'],
 	['sorya-login', 'sorya-login'],
