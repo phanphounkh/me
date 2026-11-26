@@ -1,0 +1,11 @@
+# Files `vercel deploy` must never upload from this machine (Vercel builds from source).
+# Secrets: set them with `vercel env add` instead.
+.env
+.env.*
+!.env.example
+# Local build and test artefacts
+build
+.svelte-kit
+test-results
+playwright-report
+node_modules

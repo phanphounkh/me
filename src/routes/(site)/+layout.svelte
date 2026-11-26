@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ChatWidget from '#lib/components/chat/ChatWidget.svelte';
 	import BackToTop from '#lib/components/layout/BackToTop.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
@@ -13,6 +14,7 @@
 </main>
 <Footer />
 <BackToTop />
+<ChatWidget />
 
 <style>
 	.skip-link {

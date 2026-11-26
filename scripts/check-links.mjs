@@ -1,6 +1,6 @@
 /**
  * Verifies every link in the built site (run `npm run build` first):
- *   - internal href/src/srcset targets exist in build/
+ *   - internal href/src/srcset targets exist in the static output
  *   - #fragment targets exist on the destination page
  *   - external http(s) links respond with a non-error status
  *   - mailto: links are well-formed
@@ -9,7 +9,8 @@
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 
-const BUILD = 'build';
+// adapter-vercel writes prerendered pages and assets here.
+const BUILD = '.vercel/output/static';
 const OFFLINE = process.argv.includes('--offline');
 
 async function walk(dir) {

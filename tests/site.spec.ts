@@ -256,7 +256,8 @@ test.describe('other pages', () => {
 	});
 
 	test('unknown URLs show the 404 page', async ({ page }) => {
-		await page.goto('/404.html');
+		const response = await page.goto('/no-such-page/');
+		expect(response?.status()).toBe(404);
 		await expect(page.getByText('This page could not be found.')).toBeVisible();
 		await expect(page.getByRole('link', { name: 'Back to the portfolio' })).toBeVisible();
 	});
@@ -271,6 +272,136 @@ test.describe('other pages', () => {
 	});
 });
 
+test.describe('chat assistant', () => {
+	const launcher = (page: Page) => page.getByRole('button', { name: 'Chat with Phoun’s assistant' });
+	const panel = (page: Page) => page.locator('#chat-panel');
+
+	async function openChat(page: Page) {
+		await page.goto('/');
+		await launcher(page).click();
+		await expect(panel(page)).toHaveClass(/open/);
+		await expect(page.getByRole('heading', { name: "Phoun's Assistant" })).toBeVisible();
+	}
+
+	/** Answers /api/chat like Gemini would, and records what the page sent. */
+	async function mockAi(page: Page, answer: string) {
+		const bodies: { messages: { role: string; content: string }[] }[] = [];
+		await page.route('**/api/chat', async (route) => {
+			bodies.push(route.request().postDataJSON());
+			await route.fulfill({
+				status: 200,
+				headers: {
+					'content-type': 'text/plain; charset=utf-8',
+					'x-chat-mode': 'ai',
+					'x-chat-sources': encodeURIComponent(JSON.stringify([{ title: 'Khmer OCR pipeline', href: '/#research' }]))
+				},
+				body: answer
+			});
+		});
+		return bodies;
+	}
+
+	test('opens with the input focused, switches tabs by keyboard and closes with Escape', async ({ page }) => {
+		const errors = watchErrors(page);
+		await openChat(page);
+		await expect(page.getByLabel('Ask about Phoun')).toBeFocused();
+
+		await page.getByRole('tab', { name: 'Ask AI' }).focus();
+		await page.keyboard.press('ArrowRight');
+		await expect(page.getByRole('tab', { name: 'Email' })).toHaveAttribute('aria-selected', 'true');
+		await expect(page.getByRole('tab', { name: 'Email' })).toBeFocused();
+		await page.keyboard.press('End');
+		await expect(page.getByRole('tab', { name: 'Call' })).toHaveAttribute('aria-selected', 'true');
+		await expect(page.getByRole('tabpanel', { name: 'Call' })).toBeVisible();
+
+		await page.keyboard.press('Escape');
+		await expect(panel(page)).not.toHaveClass(/open/);
+		await expect(launcher(page)).toBeFocused();
+		await expect(launcher(page)).toHaveAttribute('aria-expanded', 'false');
+		await noHorizontalOverflow(page);
+		expect(errors).toEqual([]);
+	});
+
+	test('Ask AI sends the conversation and renders the answer with sources', async ({ page }) => {
+		const bodies = await mockAi(page, 'Phoun researches **Khmer OCR**.\n\n- Python\n- OpenCV');
+		await openChat(page);
+		await page.getByRole('button', { name: 'What are his strongest skills?' }).click();
+
+		const log = page.getByRole('log', { name: 'Conversation' });
+		await expect(log.locator('strong', { hasText: 'Khmer OCR' })).toBeVisible();
+		await expect(log.getByRole('listitem')).toHaveText(['Python', 'OpenCV']);
+		await expect(log.getByRole('link', { name: 'Khmer OCR pipeline' })).toHaveAttribute('href', '/#research');
+		await expect(page.getByText('Online · powered by Gemini')).toBeVisible();
+		expect(bodies[0]).toEqual({ messages: [{ role: 'user', content: 'What are his strongest skills?' }] });
+
+		// Follow-ups carry the conversation so far.
+		await page.getByLabel('Ask about Phoun').fill('Tell me more');
+		await page.keyboard.press('Enter');
+		await expect.poll(() => bodies.length).toBe(2);
+		expect(bodies[1]!.messages.map((m) => m.role)).toEqual(['user', 'assistant', 'user']);
+	});
+
+	test('answers from the portfolio when Gemini is not configured', async ({ page }) => {
+		await openChat(page);
+		await page.getByLabel('Ask about Phoun').fill('What is his phone number?');
+		await page.keyboard.press('Enter');
+		const log = page.getByRole('log', { name: 'Conversation' });
+		await expect(log.getByText('+855 71 326 6899')).toBeVisible();
+		await expect(log.getByText('Offline answer — straight from the portfolio.')).toBeVisible();
+		await expect(page.getByText('Offline mode · portfolio excerpts')).toBeVisible();
+	});
+
+	test('offers a retry when the request fails', async ({ page }) => {
+		let fail = true;
+		await page.route('**/api/chat', (route) =>
+			fail
+				? route.fulfill({
+						status: 500,
+						contentType: 'application/json',
+						body: JSON.stringify({ message: 'Server error' })
+					})
+				: route.fulfill({ status: 200, headers: { 'x-chat-mode': 'ai' }, body: 'Back online.' })
+		);
+		await openChat(page);
+		await page.getByRole('button', { name: 'How can I hire him?' }).click();
+		await expect(page.getByText('Server error')).toBeVisible();
+		fail = false;
+		await page.getByRole('button', { name: 'Try again' }).click();
+		await expect(page.getByText('Back online.')).toBeVisible();
+		await expect(page.getByText('Server error')).toHaveCount(0);
+	});
+
+	test('Email tab validates, then composes a mailto draft', async ({ page }) => {
+		await openChat(page);
+		await page.getByRole('tab', { name: 'Email' }).click();
+		const tab = page.getByRole('tabpanel', { name: 'Email' });
+		await tab.getByRole('button', { name: 'Open in email app' }).click();
+		await expect(tab.getByText('Please enter your name.')).toBeVisible();
+		await expect(tab.getByLabel('Your name')).toBeFocused();
+
+		await tab.getByLabel('Your name').fill('Test Recruiter');
+		await tab.getByLabel('Your email').fill('recruiter@example.com');
+		await tab.getByLabel('Message').fill('Hello Phoun, we would like to talk about a role.');
+		await tab.getByRole('button', { name: 'Open in email app' }).click();
+		await expect(tab.getByRole('link', { name: 'open the draft again' })).toHaveAttribute(
+			'href',
+			/^mailto:phanphoun855@gmail\.com\?subject=Portfolio%20enquiry%20from%20Test%20Recruiter&body=Hello/
+		);
+	});
+
+	test('Call tab links to the phone number and copies it', async ({ page, context }) => {
+		await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+		await openChat(page);
+		await page.getByRole('tab', { name: 'Call' }).click();
+		const tab = page.getByRole('tabpanel', { name: 'Call' });
+		await expect(tab.getByRole('link', { name: 'Call now' })).toHaveAttribute('href', 'tel:+855713266899');
+		await expect(tab.getByText('in Phnom Penh (UTC+7)')).toBeVisible();
+		await tab.getByRole('button', { name: 'Copy number' }).click();
+		await expect(tab.getByRole('button', { name: 'Number copied' })).toBeVisible();
+		expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('+855 71 326 6899');
+	});
+});
+
 test.describe('accessibility (axe, WCAG 2.1 AA)', () => {
 	for (const theme of ['dark', 'light'] as const) {
 		for (const path of ['/', '/projects/khmer-ocr-research/', '/cv/']) {
@@ -279,6 +410,13 @@ test.describe('accessibility (axe, WCAG 2.1 AA)', () => {
 				await page.emulateMedia({ reducedMotion: 'reduce' });
 				await page.goto(path);
 				await page.waitForTimeout(400);
+				if (path === '/') {
+					// Check the chat panel too (open, with a reply on screen).
+					await page.getByRole('button', { name: 'Chat with Phoun’s assistant' }).click();
+					await page.getByLabel('Ask about Phoun').fill('phone');
+					await page.keyboard.press('Enter');
+					await expect(page.getByText('Offline answer — straight from the portfolio.')).toBeVisible();
+				}
 				const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
 				const serious = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
 				expect(

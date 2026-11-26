@@ -33,8 +33,9 @@
 <style>
 	.back-to-top {
 		position: fixed;
-		right: 1rem;
-		bottom: 1rem;
+		/* Sits above the chat launcher (3.5rem + gap). */
+		right: 1.375rem;
+		bottom: 5.25rem;
 		z-index: 40;
 		background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
 		backdrop-filter: blur(10px);
@@ -55,8 +56,8 @@
 	}
 	@media (min-width: 640px) {
 		.back-to-top {
-			right: 1.5rem;
-			bottom: 1.5rem;
+			right: 1.875rem;
+			bottom: 5.75rem;
 		}
 	}
 	@media print {

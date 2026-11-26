@@ -18,6 +18,7 @@
 		"lint": "prettier --check .",
 		"images": "node scripts/prepare-images.mjs",
 		"cv": "node scripts/generate-cv.mjs",
+		"embeddings": "node scripts/embed-knowledge.ts",
 		"links": "node scripts/check-links.mjs",
 		"test:e2e": "playwright test",
 		"verify": "npm run check && npm run build && npm run links && npm run test:e2e"
@@ -26,13 +27,14 @@
 		"@fontsource-variable/geist": "^5.3.0",
 		"@fontsource-variable/geist-mono": "^5.3.0",
 		"@fontsource-variable/noto-sans-khmer": "^5.3.0",
+		"@google/genai": "^3.6.1",
 		"@lucide/svelte": "^1.76.0",
 		"simple-icons": "^16.38.1"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.14.0",
 		"@playwright/test": "^1.60.0",
-		"@sveltejs/adapter-static": "^4.0.1",
+		"@sveltejs/adapter-vercel": "^7.0.5",
 		"@sveltejs/kit": "^3.4.0",
 		"@sveltejs/vite-plugin-svelte": "^7.3.1",
 		"@tailwindcss/vite": "^4.3.5",

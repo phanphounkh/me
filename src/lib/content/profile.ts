@@ -18,6 +18,9 @@ export const profile = {
 	// TODO(confirm): an older CV used phounphan855@gmail.com — confirm which one is current.
 	email: 'phanphoun855@gmail.com',
 
+	/** Cambodian mobile (071 326 6899). Used by the chat widget's "Call" tab and the AI assistant. */
+	phone: { display: '+855 71 326 6899', tel: '+855713266899' },
+
 	/** Shown in the hero. TODO(confirm): availability wording and start date. */
 	availability: 'Open to junior AI/ML, computer vision and Python roles from December 2026',
 

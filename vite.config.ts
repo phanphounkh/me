@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 
 export default defineConfig({
@@ -13,11 +13,12 @@ export default defineConfig({
 				// Runes mode for project files; libraries decide for themselves.
 				runes: ({ filename }) => (filename.split(/[/\\]/).includes('node_modules') ? undefined : true)
 			},
-			// Fully static output (build/) — deployable to Vercel, Netlify, Cloudflare Pages or any CDN.
+			// Every page is still prerendered to static HTML (see src/routes/+layout.ts). The only
+			// server code is the chat endpoint (src/routes/api/chat/), which runs as a Vercel Function
+			// so the Gemini API key never reaches the browser. Output: .vercel/output/.
 			// Inline the page CSS (~60 kB, ~12 kB gzipped) to remove render-blocking requests.
 			inlineStyleThreshold: 100_000,
-			// 404.html is served by Vercel, Netlify, Cloudflare Pages and GitHub Pages for unknown URLs.
-			adapter: adapter({ fallback: '404.html', strict: true }),
+			adapter: adapter(),
 			prerender: {
 				// /og/ is not linked from any page; it is rendered to og.png by `npm run cv`.
 				entries: ['*', '/og/'],

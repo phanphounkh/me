@@ -15,7 +15,9 @@ export default defineConfig({
 		command: 'npx vite preview --port 4320 --strictPort',
 		url: 'http://localhost:4320/',
 		reuseExistingServer: false,
-		timeout: 30_000
+		timeout: 30_000,
+		// Tests never call Gemini: the chat runs in offline (rule-based) mode, AI answers are mocked.
+		env: { GEMINI_API_KEY: '' }
 	},
 	projects: [
 		{ name: 'desktop', use: { viewport: { width: 1440, height: 900 } } },
