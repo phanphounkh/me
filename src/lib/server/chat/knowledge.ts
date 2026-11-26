@@ -173,7 +173,7 @@ function build(): Chunk[] {
 					`Challenges:\n${bullets(cs.challenges)}`,
 					`Current status: ${cs.status}`,
 					`What he learned:\n${bullets(cs.learned)}`,
-					`Next steps:\n${bullets(cs.next)}`
+					!!cs.next?.length && `Next steps:\n${bullets(cs.next)}`
 				)
 			});
 		}

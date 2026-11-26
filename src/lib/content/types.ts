@@ -33,7 +33,8 @@ export interface CaseStudy {
 	challenges: string[];
 	status: string;
 	learned: string[];
-	next: string[];
+	/** Omit for finished projects. */
+	next?: string[];
 }
 
 export interface Project {

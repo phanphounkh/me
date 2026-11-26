@@ -359,6 +359,80 @@ export const projects: Project[] = [
 		}
 	},
 	{
+		slug: 'kamrieng-high-school',
+		title: 'Kamrieng High School Website',
+		tagline: 'A bilingual Khmer–English website and admin CMS for a public high school in Battambang.',
+		summary:
+			"The official website of Kamrieng High School, built as a Passerelles numériques Cambodia Virtual Company (VC2) team project: news, achievements, governance, documents and the school's operations report for families and the community, plus an admin back office for staff.",
+		status: 'Completed',
+		categories: ['fullstack'],
+		tech: ['Laravel', 'Next.js', 'Tailwind CSS', 'MySQL', 'Supabase', 'Alpine.js', 'TypeScript', 'next-intl'],
+		context: 'PNC Virtual Company (VC2) team project',
+		repo: 'https://github.com/phanphoun/kamrieng-highschooll',
+		live: 'https://kamrieng-highschool.vercel.app/en',
+		liveLabel: 'Live site',
+		cover: {
+			kind: 'image',
+			base: 'kamrieng-cover',
+			alt: 'Home page of the Kamrieng High School website: a Khmer welcome headline over a photo of the school staff, with the bilingual navigation bar.'
+		},
+		gallery: [
+			{
+				base: 'kamrieng-about',
+				alt: 'About page with the school at a glance: founded in 2000, 21,253 m² of land, 2,126 students, 51 teachers and 42 classes.',
+				caption: 'About: the school at a glance, its vision, mission and history.'
+			},
+			{
+				base: 'kamrieng-news',
+				alt: 'News page with category filters and article cards for school events and exam notices.',
+				caption: 'News with categories for ministry news, school news, announcements and events.'
+			},
+			{
+				base: 'kamrieng-report',
+				alt: 'School Operations Report page: a numbered section list beside general school information for 2024–2025.',
+				caption: "The school's operations report, published section by section."
+			},
+			{
+				base: 'kamrieng-governance',
+				alt: 'Governance page describing the structure and management systems and the learning culture, in Khmer and English.',
+				caption: 'Governance: structure, management systems and learning culture.'
+			}
+		],
+		implemented: [
+			'Bilingual Khmer / English public site: home, about, governance, news, achievements, documents, operations report, contact and donate',
+			'Admin back office: news, achievements, teachers, statistics, messages, users, settings and audit logs',
+			'Staff accounts with role-based access',
+			'Laravel version: online enrolment with tracking codes, an events calendar, a photo gallery and site search',
+			'Laravel version: feature and unit tests for public pages, enrolment, admin CRUD and permissions'
+		],
+		caseStudy: {
+			problem:
+				'A public high school needs one place where families and the community can find news, achievements, documents and school data — in Khmer and English — and that staff can keep up to date without a developer.',
+			motivation:
+				"PNC's Virtual Company: a student team builds a real website the way a small software company would, with a backlog, sprints and pull requests.",
+			role: "Developer on the team. My commits in the Laravel codebase cover the project setup, the product backlog and sprint documents, merging teammates' feature branches, and CI and code-style fixes.",
+			approach: [
+				'Write the work as user stories in a product backlog and deliver it in sprints, one feature branch per story.',
+				'Laravel 11 with Blade, Tailwind CSS and Alpine.js for the public site and the admin CMS, on MySQL.',
+				'Khmer and English throughout, and role-based access for the admin area.',
+				'Feature and unit tests for public pages, enrolment, admin CRUD and permissions.',
+				'The live site runs on a Next.js 15 + Supabase version, with locale routes (/en, /km) and an admin dashboard.'
+			],
+			challenges: [
+				'Integrating feature branches from several developers into one codebase.',
+				'Keeping Khmer and English content consistent on every page.',
+				'Letting non-technical staff update content safely, through roles and permissions.'
+			],
+			status:
+				"Completed and live as the school's website. The repository linked here is the team's Laravel version; the live site runs on a Next.js + Supabase version.",
+			learned: [
+				'Working as a team with a backlog, sprints and pull requests',
+				'Laravel MVC, Blade and role-based access',
+				'Building bilingual Khmer–English interfaces'
+			]
+		}
+	},
+	{
 		slug: 'datahub',
 		title: 'DataHub',
 		tagline: 'A document data platform for collecting, reviewing and preparing datasets.',

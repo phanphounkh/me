@@ -7,6 +7,7 @@ const PROJECT_SLUGS = [
 	'sastra-ai',
 	'phnom-penh-digital-world',
 	'campus-eats',
+	'kamrieng-high-school',
 	'datahub',
 	'taskflow-api',
 	'student-performance-analytics'
@@ -167,13 +168,13 @@ test.describe('home page', () => {
 	test('project filters narrow the list', async ({ page }) => {
 		await page.goto('/#projects');
 		const cards = page.locator('#projects > div > ul').first().locator('> li');
-		await expect(cards).toHaveCount(8);
+		await expect(cards).toHaveCount(9);
 		await page.getByRole('button', { name: /^Backend/ }).click();
 		await expect(page.getByRole('button', { name: /^Backend/ })).toHaveAttribute('aria-pressed', 'true');
 		await expect(cards).toHaveCount(1);
 		await expect(cards.first()).toContainText('TaskFlow API');
 		await page.getByRole('button', { name: /^All/ }).click();
-		await expect(cards).toHaveCount(8);
+		await expect(cards).toHaveCount(9);
 	});
 
 	test('experience tabs work with mouse and keyboard', async ({ page }) => {

@@ -184,12 +184,14 @@
 							{#each cs.learned as l (l)}<li>{l}</li>{/each}
 						</ul>
 					</section>
-					<section aria-labelledby="next">
-						<h2 id="next" class="h2">Next steps</h2>
-						<ul class="list">
-							{#each cs.next as n (n)}<li>{n}</li>{/each}
-						</ul>
-					</section>
+					{#if cs.next?.length}
+						<section aria-labelledby="next">
+							<h2 id="next" class="h2">Next steps</h2>
+							<ul class="list">
+								{#each cs.next as n (n)}<li>{n}</li>{/each}
+							</ul>
+						</section>
+					{/if}
 				{/if}
 
 				{#if p.gallery?.length}

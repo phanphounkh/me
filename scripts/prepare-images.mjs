@@ -41,6 +41,11 @@ const projects = [
 	['sorya-editor', 'sorya-editor'],
 	['sorya-home', 'sorya-home'],
 	['sorya-login', 'sorya-login'],
+	['kamrieng-home', 'kamrieng-cover'],
+	['kamrieng-about', 'kamrieng-about'],
+	['kamrieng-news', 'kamrieng-news'],
+	['kamrieng-report', 'kamrieng-report'],
+	['kamrieng-governance', 'kamrieng-governance'],
 	['sastra-landing', 'sastra-cover']
 ];
 
