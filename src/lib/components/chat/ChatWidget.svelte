@@ -90,7 +90,7 @@
 	const status = $derived(
 		mode === 'fallback'
 			? { text: 'Offline mode · portfolio excerpts', live: false }
-			: { text: mode === 'ai' ? 'Online · powered by Gemini' : 'Online · answers from the portfolio', live: true }
+			: { text: mode === 'ai' ? 'Online' : 'Online · answers from the portfolio', live: true }
 	);
 </script>
 
