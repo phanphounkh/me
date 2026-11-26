@@ -33,7 +33,8 @@ const projects = [
 	['ppdw-phase2-central-market-sunset', 'ppdw-cover'],
 	['ppdw-phase3-two-players', 'ppdw-multiplayer'],
 	['ppdw-phase4-shop-interior', 'ppdw-shop'],
-	['ppdw-phase5-route', 'ppdw-route']
+	['ppdw-phase5-route', 'ppdw-route'],
+	['sorya-ai-cover', 'sorya-cover']
 ];
 
 async function variants(input, extract, base, widths, { jpg = true } = {}) {

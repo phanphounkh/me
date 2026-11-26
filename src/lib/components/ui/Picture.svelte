@@ -14,6 +14,7 @@
 		loading?: 'lazy' | 'eager';
 		fetchpriority?: 'high' | 'low' | 'auto';
 		class?: string;
+		style?: string;
 	}
 	let {
 		base,
@@ -25,7 +26,8 @@
 		formats = ['avif', 'webp'],
 		loading = 'lazy',
 		fetchpriority = 'auto',
-		class: className = ''
+		class: className = '',
+		style
 	}: Props = $props();
 
 	const srcset = (ext: string) => widths.map((w) => `/images/${base}-${w}.${ext} ${w}w`).join(', ');
@@ -48,5 +50,6 @@
 		{fetchpriority}
 		decoding="async"
 		class={className}
+		{style}
 	/>
 </picture>

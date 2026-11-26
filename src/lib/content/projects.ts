@@ -30,7 +30,12 @@ export const projects: Project[] = [
 		live: 'https://chat.sorya-ai.com/app',
 		liveLabel: 'Try Sorya AI',
 		privateNote: SKAI_PRIVATE,
-		cover: { kind: 'art', motif: 'ocr' },
+		cover: {
+			kind: 'image',
+			base: 'sorya-cover',
+			alt: 'Illustration of a small white robot in a sun-patterned saffron scarf, sitting on a temple ledge beside an open book and looking out at Angkor Wat under a rising sun.',
+			position: '70% 50%'
+		},
 		implemented: [
 			'Khmer document collection and organisation',
 			'Dataset preparation groundwork',

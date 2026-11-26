@@ -24,6 +24,7 @@
 		{sizes}
 		loading={eager ? 'eager' : 'lazy'}
 		class="h-full w-full object-cover"
+		style={cover.position && `object-position: ${cover.position}`}
 	/>
 {:else}
 	<CoverArt motif={cover.motif} />

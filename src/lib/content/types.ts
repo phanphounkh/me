@@ -13,7 +13,9 @@ export type ProjectCategory = 'ai' | 'cv' | 'data' | 'fullstack' | '3d' | 'backe
 /** Generated SVG cover motifs, used when no real screenshot exists (never fake screenshots). */
 export type CoverMotif = 'ocr' | 'annotation' | 'cart' | 'pipeline' | 'api' | 'chart' | 'grid3d' | 'llm';
 
-export type Cover = { kind: 'image'; base: string; alt: string } | { kind: 'art'; motif: CoverMotif };
+export type Cover =
+	/** `position` is a CSS object-position, for when the crop must favour one side (e.g. '70% 50%'). */
+	{ kind: 'image'; base: string; alt: string; position?: string } | { kind: 'art'; motif: CoverMotif };
 
 export interface GalleryImage {
 	base: string;
