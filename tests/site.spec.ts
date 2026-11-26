@@ -9,7 +9,6 @@ const PROJECT_SLUGS = [
 	'campus-eats',
 	'kamrieng-high-school',
 	'datahub',
-	'taskflow-api',
 	'student-performance-analytics'
 ];
 
@@ -168,13 +167,14 @@ test.describe('home page', () => {
 	test('project filters narrow the list', async ({ page }) => {
 		await page.goto('/#projects');
 		const cards = page.locator('#projects > div > ul').first().locator('> li');
-		await expect(cards).toHaveCount(9);
-		await page.getByRole('button', { name: /^Backend/ }).click();
-		await expect(page.getByRole('button', { name: /^Backend/ })).toHaveAttribute('aria-pressed', 'true');
-		await expect(cards).toHaveCount(1);
-		await expect(cards.first()).toContainText('TaskFlow API');
+		await expect(cards).toHaveCount(8);
+		await page.getByRole('button', { name: /^3D & Interactive/ }).click();
+		await expect(page.getByRole('button', { name: /^3D & Interactive/ })).toHaveAttribute('aria-pressed', 'true');
+		await expect(cards).toHaveCount(2);
+		await expect(cards.first()).toContainText('Phnom Penh Digital World');
+		await expect(page.getByRole('button', { name: /^Backend/ })).toHaveCount(0);
 		await page.getByRole('button', { name: /^All/ }).click();
-		await expect(cards).toHaveCount(9);
+		await expect(cards).toHaveCount(8);
 	});
 
 	test('experience tabs work with mouse and keyboard', async ({ page }) => {

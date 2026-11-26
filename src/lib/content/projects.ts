@@ -475,39 +475,6 @@ export const projects: Project[] = [
 		]
 	},
 	{
-		slug: 'taskflow-api',
-		title: 'TaskFlow API',
-		tagline: 'A FastAPI backend built to practise professional API architecture.',
-		summary: 'A task-management REST API organised into routers, services and repositories, with validation and tests.',
-		status: 'Learning Project',
-		categories: ['backend'],
-		tech: ['Python', 'FastAPI', 'Pydantic', 'pytest'],
-		context: 'Personal learning project', // TODO(confirm): publish to GitHub to add a link
-		cover: { kind: 'art', motif: 'api' },
-		implemented: [
-			'REST endpoints to list, read, create, update and delete tasks',
-			'Task analytics endpoint',
-			'Layered design: API routing → service layer → repository',
-			'Pydantic data validation',
-			'pytest test suite'
-		],
-		caseStudy: {
-			problem: 'Small APIs often grow into tangled code where routing, business rules and storage are mixed together.',
-			motivation: 'Learn the structure used in maintainable backends before building larger services.',
-			role: 'Solo learning project.',
-			approach: [
-				'Routers handle HTTP only.',
-				'Services hold business rules.',
-				'Repositories isolate storage, so it can be swapped or mocked in tests.'
-			],
-			architecture: ['FastAPI routers', 'Service layer', 'Repository', 'Pydantic schemas'],
-			challenges: ['Choosing clear boundaries between layers.'],
-			status: 'Learning project with a working API and tests.',
-			learned: ['Repository and service patterns', 'REST API design', 'Testing FastAPI apps'],
-			next: ['Add a database-backed repository and authentication.']
-		}
-	},
-	{
 		slug: 'student-performance-analytics',
 		title: 'Student Performance Analytics',
 		tagline: 'Exploratory data analysis and baseline models on student exam data.',

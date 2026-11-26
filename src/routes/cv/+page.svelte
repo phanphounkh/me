@@ -43,12 +43,6 @@
 			status: 'Prototype · personal',
 			text: 'Bilingual canteen ordering app with an interactive cart, demo KHQR checkout, live order tracking and an admin panel; tested with pytest, Vitest and Playwright. SvelteKit, FastAPI, PostgreSQL.',
 			link: p('campus-eats').repo!
-		},
-		{
-			title: p('taskflow-api').title,
-			status: 'Learning project',
-			text: 'FastAPI task API structured as routers, services and repositories, with Pydantic validation and pytest tests.',
-			link: null
 		}
 	];
 
@@ -84,13 +78,7 @@
 <main class="cv-wrap">
 	<article class="sheet" aria-label="Curriculum vitae of {profile.name}">
 		<header class="cv-head">
-			<img
-				src="/images/cv-portrait-420.jpg"
-				alt="Portrait of {profile.name}"
-				width="420"
-				height="420"
-				class="photo"
-			/>
+			<img src="/images/cv-portrait-420.jpg" alt="Portrait of {profile.name}" width="420" height="420" class="photo" />
 			<div class="min-w-0">
 				<h1 class="name">{profile.name.toUpperCase()}</h1>
 				<p class="title">{profile.title}</p>
