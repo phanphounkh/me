@@ -342,50 +342,65 @@ export const projects: Project[] = [
 		}
 	},
 	{
-		slug: 'campus-eats',
-		title: 'Campus Eats',
-		tagline: 'A bilingual food-ordering prototype for a student canteen, which grew into the Bondarnh marketplace.',
+		slug: 'bondarnh-erp',
+		title: 'Bondarnh ERP',
+		tagline: 'A Khmer–English social-commerce marketplace and seller platform for Cambodia, grown from Campus Eats.',
 		summary:
-			'Students browse the menu, drag dishes into a cart, pay with a demo KHQR flow and track their order; staff manage orders and the menu. The project later grew into Bondarnh, a bilingual social-commerce marketplace for Cambodian buyers and sellers, shown in the demo video.',
-		status: 'Prototype',
-		categories: ['fullstack', '3d'],
-		tech: ['SvelteKit', 'FastAPI', 'PostgreSQL', 'Docker', 'Tailwind CSS', 'Three.js'],
+			'Individuals and businesses open shops, publish products and manage inventory and orders; customers discover products through a shopping feed, message sellers and buy from one or several shops, paying by KHQR (sandbox) or cash on delivery. It grew out of Campus Eats, my bilingual canteen-ordering prototype.',
+		status: 'In Development',
+		categories: ['fullstack'],
+		tech: ['SvelteKit', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery', 'Tailwind CSS', 'Docker', 'Playwright'],
 		context: 'Personal project',
-		repo: 'https://github.com/phanphounkh/campufood',
+		repo: 'https://github.com/Bondarnh/bondarnh_erp',
 		demo: { kind: 'youtube', id: 'uIR7XFcqiU4', title: 'Bondarnh, a Cambodian e-commerce platform: full-stack demo' },
 		cover: {
 			kind: 'image',
-			base: 'campuseats-cover',
-			alt: 'Promotional graphic for Bondarnh, the Cambodian marketplace that grew out of Campus Eats: the shop on a laptop and a phone, with Khmer product listings and prices.',
+			base: 'bondarnh-cover',
+			alt: 'Promotional graphic for Bondarnh, a Cambodian marketplace: the shop on a laptop and a phone, with Khmer product listings and prices.',
 			position: '25% 30%'
 		},
 		implemented: [
-			'English / Khmer menu browsing',
-			'Interactive cart with quantity and total calculation',
-			'Guest checkout with a demo KHQR payment flow (no real money)',
-			'Live order tracking',
-			'Admin: orders, menu, inventory and reports',
-			'Tests with pytest, Vitest and Playwright'
+			'Shops for individuals and businesses, with catalog, categories, media and inventory',
+			'Shopping feed with social actions, search and product pages',
+			'Cart with split checkout per seller: KHQR (sandbox) or cash on delivery',
+			'Order fulfilment, messaging and notifications',
+			'Reviews, complaints and refunds',
+			'Seller analytics, plans and subscription billing',
+			'An audited administration console',
+			'Background jobs on Celery + Redis: reservation expiry, stale orders, the email outbox and billing cycles',
+			'Tests: pytest against PostgreSQL, and Playwright in Khmer on a 360 px phone and in English on desktop',
+			'Where it started — Campus Eats: bilingual canteen ordering with a demo KHQR checkout, live order tracking and an admin panel'
 		],
 		planned: [
-			'A full 3D marketplace — a separate Three.js prototype explored a 3D food court, which now lives inside Phnom Penh Digital World'
+			'A real KHQR payment provider — checkout uses a clearly labelled sandbox today',
+			'A controlled beta with sellers and buyers before a public launch'
 		],
 		caseStudy: {
-			problem: 'Ordering at a busy student canteen means queues and little visibility into order status.',
+			problem:
+				'Cambodian sellers juggle expensive custom software and scattered selling channels, and find it hard to build trust; customers need clearer product information and an easier way to find and assess sellers. These are working hypotheses that still need testing with real sellers and buyers.',
 			motivation:
-				'Practice building a complete product — ordering, payment flow, admin tools and tests — around a familiar, local use case.',
-			role: 'Solo developer.',
+				'Grow a small canteen-ordering prototype into a complete product: one storefront and management system connected to product discovery, in Khmer and English.',
+			role: 'Product owner and solo developer: product requirements, backend, web app and tests.',
 			approach: [
-				'SvelteKit front end with drag-and-drop ordering.',
-				'FastAPI back end with PostgreSQL and migrations.',
-				'Demo-only KHQR payment flow that is disabled in production.'
+				'Write the product requirements first: users and permissions, main journeys, 16 functional areas, business rules and release acceptance.',
+				'A FastAPI backend split into modules — accounts, shops, catalog, inventory, cart, orders, payments, messaging, trust, complaints, billing, analytics and admin.',
+				'Celery workers on Redis for time-based work such as reservation expiry, stale orders, email and billing cycles.',
+				'A SvelteKit web app for customers, sellers and administrators, designed mobile-first in Khmer and English.',
+				'Payments run through a clearly labelled KHQR sandbox in development, and production refuses to start with it.'
 			],
-			architecture: ['SvelteKit', 'FastAPI', 'PostgreSQL', 'Docker Compose'],
-			challenges: ['Keeping the payment flow clearly demo-only.', 'Bilingual content throughout the UI.'],
-			status:
-				'Working prototype. Payments are a demo; the 3D shopping experience is a separate prototype. The project later grew into Bondarnh — a marketplace with shops, sandbox KHQR checkout, messaging and seller analytics (private repository).',
-			learned: ['End-to-end testing of a full product', 'Designing safe demo payment flows'],
-			next: ['Merge the 3D shopping ideas into a single experience.']
+			architecture: ['SvelteKit web app', 'FastAPI API', 'Celery + Redis jobs', 'PostgreSQL + S3 storage'],
+			challenges: [
+				'Splitting one checkout into separate orders per seller, with payments and refunds that reconcile.',
+				'Making sure the payment simulation can never ship to production.',
+				'Making the main journeys work in Khmer on small phone screens.'
+			],
+			status: 'In development. The marketplace runs locally with Docker Compose and payments are a sandbox simulation.',
+			learned: [
+				'Writing product requirements before code',
+				'Designing a modular backend with background jobs',
+				'Marketplace flows: split orders, refunds and trust signals'
+			],
+			next: ['Integrate a real KHQR payment provider.', 'Run a controlled beta with sellers and buyers.']
 		}
 	},
 	{

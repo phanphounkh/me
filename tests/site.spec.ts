@@ -6,7 +6,7 @@ const PROJECT_SLUGS = [
 	'khmer-annotation-studio',
 	'sastra-ai',
 	'phnom-penh-digital-world',
-	'campus-eats',
+	'bondarnh-erp',
 	'kamrieng-high-school',
 	'datahub',
 	'student-performance-analytics'
@@ -170,7 +170,7 @@ test.describe('home page', () => {
 		await expect(cards).toHaveCount(8);
 		await page.getByRole('button', { name: /^3D & Interactive/ }).click();
 		await expect(page.getByRole('button', { name: /^3D & Interactive/ })).toHaveAttribute('aria-pressed', 'true');
-		await expect(cards).toHaveCount(2);
+		await expect(cards).toHaveCount(1);
 		await expect(cards.first()).toContainText('Phnom Penh Digital World');
 		await expect(page.getByRole('button', { name: /^Backend/ })).toHaveCount(0);
 		await page.getByRole('button', { name: /^All/ }).click();

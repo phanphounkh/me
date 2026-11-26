@@ -1,6 +1,13 @@
 {
 	"$schema": "https://openapi.vercel.sh/vercel.json",
 	"buildCommand": "npm run build",
+	"redirects": [
+		{
+			"source": "/projects/campus-eats/:path*",
+			"destination": "/projects/bondarnh-erp/",
+			"permanent": true
+		}
+	],
 	"headers": [
 		{
 			"source": "/_app/immutable/(.*)",

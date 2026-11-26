@@ -39,10 +39,10 @@
 			link: p('phnom-penh-digital-world').repo!
 		},
 		{
-			title: p('campus-eats').title,
-			status: 'Prototype · personal',
-			text: 'Bilingual canteen ordering app with an interactive cart, demo KHQR checkout, live order tracking and an admin panel; tested with pytest, Vitest and Playwright. SvelteKit, FastAPI, PostgreSQL.',
-			link: p('campus-eats').repo!
+			title: p('bondarnh-erp').title,
+			status: 'In development · personal',
+			text: 'Khmer/English social-commerce marketplace grown from my Campus Eats canteen app: shops, a shopping feed, split checkout with sandbox KHQR or cash on delivery, messaging, reviews and refunds, seller analytics and an admin console. SvelteKit, FastAPI, PostgreSQL, Redis, Celery.',
+			link: p('bondarnh-erp').repo!
 		}
 	];
 
