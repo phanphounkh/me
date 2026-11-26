@@ -240,17 +240,32 @@ export const projects: Project[] = [
 		gallery: [
 			{
 				base: 'ppdw-multiplayer',
-				alt: 'Two players meeting in the 3D city with the chat panel open.',
+				alt: "One player's view: another player nearby, a chat line and the People panel listing them as an online friend.",
 				caption: 'Multiplayer: chat, friends and presence.'
 			},
 			{
+				base: 'ppdw-wardrobe',
+				alt: 'The wardrobe panel beside an avatar in a saffron cap and t-shirt, with garment and colour choices.',
+				caption: "Making an avatar in the city's wardrobe."
+			},
+			{
 				base: 'ppdw-shop',
-				alt: 'Inside a walk-in virtual shop carrying a product to the cart.',
-				caption: 'Walk-in shop with a demo checkout.'
+				alt: 'Inside Sokha Snacks: the shopkeeper behind the counter and two items in the basket.',
+				caption: 'Walk-in shops with a shopkeeper and a basket.'
+			},
+			{
+				base: 'ppdw-checkout',
+				alt: 'Paying at the counter: a receipt reading "Paid. It\'s yours.", marked as demo money.',
+				caption: 'Paying at the counter with a clearly labelled demo checkout.'
+			},
+			{
+				base: 'ppdw-cafe',
+				alt: 'Inside the Riverside Café: tables, the counter and stairs to the upper floor.',
+				caption: 'Real OpenStreetMap buildings with generated interiors.'
 			},
 			{
 				base: 'ppdw-route',
-				alt: 'Riding a motorbike along a routed path on a real street.',
+				alt: 'Riding a motorbike along a highlighted route on Calmette (Street 53) at 38 km/h, with the next turn shown.',
 				caption: 'Routing on the real road network.'
 			}
 		],

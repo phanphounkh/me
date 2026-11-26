@@ -34,6 +34,9 @@ const projects = [
 	['ppdw-phase3-two-players', 'ppdw-multiplayer'],
 	['ppdw-phase4-shop-interior', 'ppdw-shop'],
 	['ppdw-phase5-route', 'ppdw-route'],
+	['ppdw-phase4-checkout', 'ppdw-checkout'],
+	['ppdw-buildings-cafe-inside', 'ppdw-cafe'],
+	['ppdw-wardrobe-garments', 'ppdw-wardrobe'],
 	['sorya-ai-cover', 'sorya-cover'],
 	['sastra-landing', 'sastra-cover']
 ];
