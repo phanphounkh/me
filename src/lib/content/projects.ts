@@ -1,4 +1,4 @@
-import type { CompactProject, Project, ProjectCategory } from './types';
+import type { CompactProject, Demo, Project, ProjectCategory } from './types';
 
 /**
  * Projects. Every repository link below was verified to exist (GitHub API, Nov 2026).
@@ -29,6 +29,11 @@ export const projects: Project[] = [
 		context: 'SKAI Technology internship',
 		live: 'https://chat.sorya-ai.com/app',
 		liveLabel: 'Try Sorya AI',
+		demo: {
+			kind: 'link',
+			url: 'https://www.linkedin.com/posts/ksabbe_for-the-past-few-months-skai-technology-ugcPost-7510963811672211456-pqoh/',
+			label: 'Demo on LinkedIn'
+		},
 		privateNote: SKAI_PRIVATE,
 		cover: {
 			kind: 'image',
@@ -188,6 +193,7 @@ export const projects: Project[] = [
 		repo: 'https://github.com/road-to-machine-learning-and-ai/sastra',
 		live: 'https://cambo-ai.vercel.app',
 		liveLabel: 'Landing page',
+		demo: { kind: 'youtube', id: '9umW0PXzVX4', title: 'Sastra AI demo' },
 		cover: {
 			kind: 'image',
 			base: 'sastra-cover',
@@ -256,6 +262,11 @@ export const projects: Project[] = [
 		tech: ['SvelteKit', 'Three.js', 'MapLibre GL', 'FastAPI', 'PostgreSQL + PostGIS', 'Blender', 'Playwright'],
 		context: 'Personal project',
 		repo: 'https://github.com/phanphounkh/Phnom-Penh-Digital-World',
+		demo: {
+			kind: 'youtube',
+			id: 'ElaXg-DnGZE',
+			title: 'A night walk around Wat Phnom Roundabout in Phnom Penh Digital World'
+		},
 		cover: {
 			kind: 'image',
 			base: 'ppdw-cover',
@@ -571,7 +582,8 @@ export const earlierWork: CompactProject[] = [
 		tech: ['React', 'Node.js', 'Express', 'MySQL', 'Tailwind CSS'],
 		context: 'PNC team project',
 		// The live demo (finall-vc1.vercel.app) loads, but its API is offline — not linked until fixed.
-		repo: 'https://github.com/phanphoun/Football-Field-Booking-App'
+		repo: 'https://github.com/phanphoun/Football-Field-Booking-App',
+		demo: { kind: 'link', url: 'https://canva.link/football-field-booking-app', label: 'Demo on Canva' }
 	},
 	{
 		title: 'Student Management System',
@@ -615,6 +627,9 @@ export const earlierWork: CompactProject[] = [
 		repo: 'https://github.com/phanphoun/oop-typescript'
 	}
 ];
+
+/** Where a demo can be watched outside the site. */
+export const demoUrl = (d: Demo) => (d.kind === 'youtube' ? `https://www.youtube.com/watch?v=${d.id}` : d.url);
 
 export function getProject(slug: string): Project | undefined {
 	return projects.find((p) => p.slug === slug);

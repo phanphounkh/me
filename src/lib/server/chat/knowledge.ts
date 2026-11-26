@@ -7,7 +7,7 @@
  */
 import { education, internship, internshipTimeline, journey, workAreas } from '#lib/content/experience.ts';
 import { CV_PDF_PATH, SITE_URL, profile } from '#lib/content/profile.ts';
-import { earlierWork, moreAiWork, projects } from '#lib/content/projects.ts';
+import { demoUrl, earlierWork, moreAiWork, projects } from '#lib/content/projects.ts';
 import { khmerChallenges, learningNow, pipeline, principles } from '#lib/content/research.ts';
 import { currentlyLearning, heroSkills, skillGroups } from '#lib/content/skills.ts';
 import type { CompactProject } from '#lib/content/types.ts';
@@ -33,7 +33,8 @@ function compact(p: CompactProject, group: string): Chunk {
 			p.summary,
 			`Tech: ${p.tech.join(', ')}.`,
 			p.repo && `Code: ${p.repo}`,
-			p.live && `Live demo: ${p.live}`
+			p.live && `Live demo: ${p.live}`,
+			p.demo && `Demo video: ${demoUrl(p.demo)}`
 		)
 	};
 }
@@ -154,6 +155,7 @@ function build(): Chunk[] {
 				!!p.goals?.length && `Learning goals:\n${bullets(p.goals)}`,
 				p.repo && `Code: ${p.repo}`,
 				p.live && `${p.liveLabel ?? 'Live demo'}: ${p.live}`,
+				p.demo && `Demo video: ${demoUrl(p.demo)}`,
 				p.privateNote
 			)
 		});

@@ -3,11 +3,13 @@
 	import ArrowRight from '@lucide/svelte/icons/arrow-right';
 	import CircleCheck from '@lucide/svelte/icons/circle-check';
 	import CircleDashed from '@lucide/svelte/icons/circle-dashed';
+	import CirclePlay from '@lucide/svelte/icons/circle-play';
 	import ExternalLink from '@lucide/svelte/icons/external-link';
 	import Lock from '@lucide/svelte/icons/lock';
 	import { reveal } from '#lib/actions/reveal.ts';
 	import Seo from '#lib/components/Seo.svelte';
 	import ProjectCover from '#lib/components/project/ProjectCover.svelte';
+	import YouTubeDemo from '#lib/components/project/YouTubeDemo.svelte';
 	import BrandIcon from '#lib/components/ui/BrandIcon.svelte';
 	import Picture from '#lib/components/ui/Picture.svelte';
 	import StatusBadge from '#lib/components/ui/StatusBadge.svelte';
@@ -66,6 +68,14 @@
 						{p.liveLabel ?? 'Live demo'}<span class="sr-only"> (opens in a new tab)</span>
 					</a>
 				{/if}
+				{#if p.demo?.kind === 'youtube'}
+					<a class="btn btn-secondary" href="#demo"><CirclePlay size={17} aria-hidden="true" /> Watch demo</a>
+				{:else if p.demo}
+					<a class="btn btn-secondary" href={p.demo.url} target="_blank" rel="noopener">
+						<CirclePlay size={17} aria-hidden="true" />
+						{p.demo.label}<span class="sr-only"> (opens in a new tab)</span>
+					</a>
+				{/if}
 				{#if p.privateNote}
 					<p
 						class="inline-flex items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm text-muted"
@@ -86,6 +96,13 @@
 					<h2 id="overview" class="h2">Overview</h2>
 					<p class="mt-3 text-[1.0625rem] leading-relaxed text-muted">{p.summary}</p>
 				</section>
+
+				{#if p.demo?.kind === 'youtube'}
+					<section aria-labelledby="demo">
+						<h2 id="demo" class="h2 scroll-mt-28">Demo video</h2>
+						<div class="mt-4"><YouTubeDemo id={p.demo.id} title={p.demo.title} /></div>
+					</section>
+				{/if}
 
 				{#if cs}
 					<section aria-labelledby="problem">

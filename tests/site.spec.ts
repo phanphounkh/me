@@ -234,6 +234,17 @@ test.describe('home page', () => {
 });
 
 test.describe('other pages', () => {
+	test('demo video loads only after Play', async ({ page }) => {
+		await page.route('https://www.youtube-nocookie.com/**', (r) =>
+			r.fulfill({ status: 200, contentType: 'text/html', body: '<p>player</p>' })
+		);
+		await page.goto('/projects/sastra-ai/');
+		await expect(page.getByRole('link', { name: 'Watch demo' })).toHaveAttribute('href', '#demo');
+		await expect(page.locator('iframe')).toHaveCount(0);
+		await page.getByRole('button', { name: 'Play demo video: Sastra AI demo' }).click();
+		await expect(page.locator('iframe[src^="https://www.youtube-nocookie.com/embed/9umW0PXzVX4"]')).toBeVisible();
+	});
+
 	for (const slug of PROJECT_SLUGS) {
 		test(`case study /projects/${slug}/ renders`, async ({ page }) => {
 			const errors = watchErrors(page);

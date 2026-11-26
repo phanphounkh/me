@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ArrowUpRight from '@lucide/svelte/icons/arrow-up-right';
+	import CirclePlay from '@lucide/svelte/icons/circle-play';
 	import ExternalLink from '@lucide/svelte/icons/external-link';
 	import Lock from '@lucide/svelte/icons/lock';
 	import BrandIcon from '#lib/components/ui/BrandIcon.svelte';
@@ -16,6 +17,11 @@
 	<div class="cover">
 		<ProjectCover cover={project.cover} />
 		<div class="absolute top-3 left-3"><StatusBadge status={project.status} class="badge-on-cover" /></div>
+		{#if project.demo}
+			<span class="video-chip badge-on-cover absolute top-3 right-3">
+				<CirclePlay size={12} aria-hidden="true" /> Video demo
+			</span>
+		{/if}
 	</div>
 
 	<div class="flex flex-1 flex-col p-5 sm:p-6">
@@ -122,6 +128,21 @@
 	.pcard:hover .cover :global(img),
 	.pcard:hover .cover :global(svg) {
 		transform: scale(1.035);
+	}
+	.video-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.2rem 0.6rem 0.2rem 0.5rem;
+		border-radius: 999px;
+		border: 1px solid var(--line);
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		line-height: 1.1rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--fg);
+		white-space: nowrap;
 	}
 	.cover :global(.badge-on-cover) {
 		background: color-mix(in srgb, var(--surface-strong) 82%, transparent);

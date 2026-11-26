@@ -17,6 +17,9 @@ export type Cover =
 	/** `position` is a CSS object-position, for when the crop must favour one side (e.g. '70% 50%'). */
 	{ kind: 'image'; base: string; alt: string; position?: string } | { kind: 'art'; motif: CoverMotif };
 
+/** A demo video: played on the project page (YouTube), or a link to a post or presentation elsewhere. */
+export type Demo = { kind: 'youtube'; id: string; title: string } | { kind: 'link'; url: string; label: string };
+
 export interface GalleryImage {
 	base: string;
 	alt: string;
@@ -51,6 +54,7 @@ export interface Project {
 	live?: string;
 	/** Text for the `live` link; defaults to "Live demo". */
 	liveLabel?: string;
+	demo?: Demo;
 	/** Shown instead of a code link when the code cannot be public. */
 	privateNote?: string;
 	cover: Cover;
@@ -72,6 +76,7 @@ export interface CompactProject {
 	context: string;
 	repo?: string;
 	live?: string;
+	demo?: Demo;
 }
 
 export type SkillMode = 'hands-on' | 'researching';

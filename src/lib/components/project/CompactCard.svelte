@@ -1,7 +1,9 @@
 <script lang="ts">
+	import CirclePlay from '@lucide/svelte/icons/circle-play';
 	import ExternalLink from '@lucide/svelte/icons/external-link';
 	import BrandIcon from '#lib/components/ui/BrandIcon.svelte';
 	import StatusBadge from '#lib/components/ui/StatusBadge.svelte';
+	import { demoUrl } from '#lib/content/projects.ts';
 	import type { CompactProject } from '#lib/content/types.ts';
 
 	let { project }: { project: CompactProject } = $props();
@@ -27,6 +29,13 @@
 			<a class="btn btn-ghost btn-sm" href={project.live} target="_blank" rel="noopener">
 				<ExternalLink size={15} aria-hidden="true" /> Live site<span class="sr-only">
 					for {project.title} (opens in a new tab)
+				</span>
+			</a>
+		{/if}
+		{#if project.demo}
+			<a class="btn btn-ghost btn-sm" href={demoUrl(project.demo)} target="_blank" rel="noopener">
+				<CirclePlay size={15} aria-hidden="true" /> Demo<span class="sr-only">
+					video for {project.title} (opens in a new tab)
 				</span>
 			</a>
 		{/if}
