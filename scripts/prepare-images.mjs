@@ -38,6 +38,7 @@ const projects = [
 	['ppdw-buildings-cafe-inside', 'ppdw-cafe'],
 	['ppdw-wardrobe-garments', 'ppdw-wardrobe'],
 	['sorya-ai-cover', 'sorya-cover'],
+	['annotation-studio-cover', 'annotation-cover'],
 	['sorya-editor', 'sorya-editor'],
 	['sorya-home', 'sorya-home'],
 	['sorya-login', 'sorya-login'],

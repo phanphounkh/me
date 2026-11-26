@@ -123,7 +123,12 @@ export const projects: Project[] = [
 		tech: ['SvelteKit', 'FastAPI', 'PostgreSQL', 'OpenCV', 'Docker', 'Tailwind CSS', 'Konva'],
 		context: 'SKAI Technology internship',
 		privateNote: 'Built during the SKAI Technology internship — source code is not public.',
-		cover: { kind: 'art', motif: 'annotation' },
+		cover: {
+			kind: 'image',
+			base: 'annotation-cover',
+			alt: 'Promotional graphic for the Khmer Handwriting Annotation Studio: a laptop showing a handwritten Khmer page with one line boxed and transcribed, beside the steps upload documents, annotate line by line and export training data.',
+			position: '10% 30%'
+		},
 		implemented: [
 			'Upload document images and PDFs, with duplicate detection',
 			'View and manage document pages',
