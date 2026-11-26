@@ -149,6 +149,79 @@ export const projects: Project[] = [
 		}
 	},
 	{
+		slug: 'sastra-ai',
+		title: 'Sastra AI',
+		tagline: 'A Khmer-first AI assistant with multiple model providers, document Q&A and an admin portal.',
+		summary:
+			'A full-stack assistant for Cambodian users: chat with Gemini or Ollama models, ask questions about uploaded documents, let the model call tools such as web search and report export, and manage everything from a separate admin portal. Previously called Cambo AI.',
+		status: 'Prototype',
+		categories: ['ai', 'fullstack'],
+		tech: [
+			'FastAPI',
+			'React',
+			'PostgreSQL',
+			'Gemini API',
+			'Ollama',
+			'TypeScript',
+			'Redux Toolkit',
+			'sentence-transformers',
+			'Docker'
+		],
+		context: 'Personal project',
+		repo: 'https://github.com/road-to-machine-learning-and-ai/sastra',
+		live: 'https://cambo-ai.vercel.app',
+		liveLabel: 'Landing page',
+		cover: {
+			kind: 'image',
+			base: 'sastra-cover',
+			alt: 'Screenshot of the Sastra AI landing page in Khmer: a dark and gold hero section beside a sample chat that drafts a Word document.'
+		},
+		implemented: [
+			'Streaming chat routed across Google Gemini and Ollama (local models and cloud models such as MiniMax)',
+			'Chat modes for general chat, Khmer–English translation, code, search, documents and images',
+			'Document upload with retrieval-augmented answers, using local sentence-transformer embeddings',
+			'Tool calling: web search, page fetch, calculator, Khmer lunar calendar, a Cambodia company directory and image generation',
+			'Report export to PDF, Word, Markdown and CSV — from a chat request or from any answer',
+			'Accounts with hashed passwords, JWT sessions, admin / member / guest roles and one-click guest access',
+			'Separate admin portal: user management, provider connection tests, usage telemetry and an audit log',
+			'An admin-only coding agent behind a feature flag, with allow-listed commands and approve / reject for every change',
+			'pytest suite for the agent, retrieval, tools, prompt assembly and Khmer calendar'
+		],
+		planned: [
+			'Deploy the backend and chat app — only the public landing page is online today',
+			'Move embeddings to a hosted API so the backend fits free-tier memory limits'
+		],
+		caseStudy: {
+			problem:
+				'General-purpose AI assistants are built English-first. Answers in Khmer are uneven, local knowledge such as Cambodian companies, festivals and the lunar calendar is thin, and useful output like reports has to be copied out by hand.',
+			motivation:
+				'Build a complete AI product end to end — model routing, retrieval, tools, accounts and operations — for Khmer-speaking users.',
+			role: 'Solo developer: backend, the chat app, the admin portal and the landing page.',
+			approach: [
+				'A FastAPI backend with a provider layer, so Gemini and Ollama models share one streaming interface and admins can add endpoints.',
+				'Retrieval over uploaded documents: chunking, local sentence-transformer embeddings and similarity search.',
+				'A small tool registry the model can call, from web search to PDF and Word export (ReportLab, python-docx).',
+				'A prompt builder that layers Khmer cultural rules and per-mode instructions.',
+				'React 19 + Redux Toolkit for the chat app, and a separate React admin portal for users, providers, telemetry and logs.'
+			],
+			architecture: ['React chat app + admin portal', 'FastAPI', 'Gemini · Ollama', 'PostgreSQL + document index'],
+			challenges: [
+				'Keeping one streaming interface across providers with different APIs.',
+				'Local embedding models need roughly 0.5–0.8 GB of RAM — more than most free hosting tiers offer.',
+				'Letting a model run tools and propose code changes safely: allow-listed commands, timeouts and human approval.'
+			],
+			status:
+				'Working prototype that runs locally with Docker Compose. Only the public landing page is deployed so far.',
+			learned: [
+				'Designing provider-agnostic LLM backends',
+				'Retrieval-augmented generation end to end',
+				'Tool calling and safe tool execution',
+				'Running an app with telemetry and audit logs'
+			],
+			next: ['Deploy the backend and chat app.', 'Switch to hosted embeddings to cut memory use.']
+		}
+	},
+	{
 		slug: 'phnom-penh-digital-world',
 		title: 'Phnom Penh Digital World',
 		tagline: 'A multiplayer 3D city built on real Phnom Penh map data.',
@@ -354,16 +427,6 @@ export const moreAiWork: CompactProject[] = [
 		tech: ['Python', 'OCR', 'RAG'],
 		context: 'Personal project',
 		repo: 'https://github.com/phanphoun/khmer-ocr'
-	},
-	{
-		title: 'Cambo AI',
-		summary:
-			'A multi-provider AI assistant with document upload for grounded answers and an admin dashboard for usage telemetry.',
-		status: 'Prototype',
-		tech: ['FastAPI', 'React', 'PostgreSQL', 'LLM APIs'],
-		context: 'Personal project',
-		repo: 'https://github.com/phanphoun/cambo-ai',
-		live: 'https://cambo-ai.vercel.app'
 	},
 	{
 		title: 'AI Engineer Academy',

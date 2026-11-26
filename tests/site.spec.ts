@@ -4,6 +4,7 @@ import { expect, test, type Page } from '@playwright/test';
 const PROJECT_SLUGS = [
 	'khmer-ocr-research',
 	'khmer-annotation-studio',
+	'sastra-ai',
 	'phnom-penh-digital-world',
 	'campus-eats',
 	'datahub',
@@ -166,13 +167,13 @@ test.describe('home page', () => {
 	test('project filters narrow the list', async ({ page }) => {
 		await page.goto('/#projects');
 		const cards = page.locator('#projects > div > ul').first().locator('> li');
-		await expect(cards).toHaveCount(7);
+		await expect(cards).toHaveCount(8);
 		await page.getByRole('button', { name: /^Backend/ }).click();
 		await expect(page.getByRole('button', { name: /^Backend/ })).toHaveAttribute('aria-pressed', 'true');
 		await expect(cards).toHaveCount(1);
 		await expect(cards.first()).toContainText('TaskFlow API');
 		await page.getByRole('button', { name: /^All/ }).click();
-		await expect(cards).toHaveCount(7);
+		await expect(cards).toHaveCount(8);
 	});
 
 	test('experience tabs work with mouse and keyboard', async ({ page }) => {
@@ -331,7 +332,7 @@ test.describe('chat assistant', () => {
 		await expect(log.locator('strong', { hasText: 'Khmer OCR' })).toBeVisible();
 		await expect(log.getByRole('listitem')).toHaveText(['Python', 'OpenCV']);
 		await expect(log.getByRole('link', { name: 'Khmer OCR pipeline' })).toHaveAttribute('href', '/#research');
-		await expect(page.getByText('Online · powered by Gemini')).toBeVisible();
+		await expect(page.getByText('Online', { exact: true })).toBeVisible();
 		expect(bodies[0]).toEqual({ messages: [{ role: 'user', content: 'What are his strongest skills?' }] });
 
 		// Follow-ups carry the conversation so far.
