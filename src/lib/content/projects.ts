@@ -191,8 +191,15 @@ export const projects: Project[] = [
 		cover: {
 			kind: 'image',
 			base: 'sastra-cover',
-			alt: 'Screenshot of the Sastra AI landing page in Khmer: a dark and gold hero section beside a sample chat that drafts a Word document.'
+			alt: 'The Sastra AI chat app in Khmer: a greeting, topic cards for Angkor Wat, the Khmer language, history, technology and the economy, suggestion chips and the prompt box.'
 		},
+		gallery: [
+			{
+				base: 'sastra-landing',
+				alt: 'The Sastra AI landing page in Khmer: a dark and gold hero section beside a sample chat that drafts a Word document.',
+				caption: 'The public landing page, in Khmer.'
+			}
+		],
 		implemented: [
 			'Streaming chat routed across Google Gemini and Ollama (local models and cloud models such as MiniMax)',
 			'Chat modes for general chat, Khmer–English translation, code, search, documents and images',

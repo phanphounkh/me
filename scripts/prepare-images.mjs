@@ -46,7 +46,8 @@ const projects = [
 	['kamrieng-news', 'kamrieng-news'],
 	['kamrieng-report', 'kamrieng-report'],
 	['kamrieng-governance', 'kamrieng-governance'],
-	['sastra-landing', 'sastra-cover']
+	['sastra-chat', 'sastra-cover'],
+	['sastra-landing', 'sastra-landing']
 ];
 
 async function variants(input, extract, base, widths, { jpg = true } = {}) {
