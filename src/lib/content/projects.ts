@@ -36,6 +36,23 @@ export const projects: Project[] = [
 			alt: 'Illustration of a small white robot in a sun-patterned saffron scarf, sitting on a temple ledge beside an open book and looking out at Angkor Wat under a rising sun.',
 			position: '70% 50%'
 		},
+		gallery: [
+			{
+				base: 'sorya-editor',
+				alt: "Sorya's document editor: a scanned historical Khmer page side by side with its reconstructed, editable text and a design panel.",
+				caption: 'Document editor: the scanned page beside its reconstructed, editable Khmer text.'
+			},
+			{
+				base: 'sorya-home',
+				alt: "Sorya's home screen: a greeting, the prompt box with Fast and Smart modes, and pinned chats, recent chats, projects and documents.",
+				caption: 'Home: ask anything or drop a document, with chats, projects and files close by.'
+			},
+			{
+				base: 'sorya-login',
+				alt: "Sorya's sign-in page with Google and email options beside the Angkor sunrise illustration.",
+				caption: 'Sign-in with Google or email.'
+			}
+		],
 		implemented: [
 			'Khmer document collection and organisation',
 			'Dataset preparation groundwork',
