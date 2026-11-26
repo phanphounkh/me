@@ -30,7 +30,7 @@ const slides = [
 ];
 
 const projects = [
-	['ppdw-phase2-central-market-sunset', 'ppdw-cover'],
+	['ppdw-wat-phnom-night', 'ppdw-cover'],
 	['ppdw-phase3-two-players', 'ppdw-multiplayer'],
 	['ppdw-phase4-shop-interior', 'ppdw-shop'],
 	['ppdw-phase5-route', 'ppdw-route'],

@@ -235,7 +235,7 @@ export const projects: Project[] = [
 		cover: {
 			kind: 'image',
 			base: 'ppdw-cover',
-			alt: 'A 3D street in Phnom Penh at sunset, with a player avatar, street signs in Khmer and a minimap.'
+			alt: 'A player avatar on a lamp-lit pavement at Wat Phnom Roundabout at night, with the place card, minimap and nearby chat of the 3D city.'
 		},
 		gallery: [
 			{
